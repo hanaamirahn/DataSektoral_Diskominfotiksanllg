@@ -166,56 +166,45 @@ elif selected_opd == "Dinas Kesehatan":
 # DISNAKER
 # -----------------------------
 elif selected_opd == "Dinas Ketenagakerjaan":
-    colname = 'Uraian' if 'Uraian' in df.columns else 'NAMA'
-
-    total_pencari = df[df[colname].str.contains("Pencari Kerja", case=False)].copy()
+    # Total Keseluruhan & Pencari Kerja per Tahun
+    total_pencari = df[df['Uraian'].str.contains("Pencari Kerja", case=False)].copy()
     st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
     st.dataframe(total_pencari)
 
-    pencari_pendidikan = df[df[colname].str.contains("Pendidikan", case=False)].copy()
+    # Jumlah Pencari Kerja Berdasarkan Pendidikan
+    pencari_pendidikan = df[df['Uraian'].str.contains("Pendidikan", case=False)].copy()
     st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
     st.dataframe(pencari_pendidikan)
 
-    tenaga_ln = df[df[colname].str.contains("Luar Negeri", case=False)].copy()
+    # Jumlah Tenaga Kerja Luar Negeri
+    tenaga_ln = df[df['Uraian'].str.contains("Luar Negeri", case=False)].copy()
     st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
     st.dataframe(tenaga_ln)
-
-    ayam = df[df[colname].str.contains("Ayam", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
-    st.dataframe(ayam)
-
-    itik = df[df[colname].str.contains("Itik", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
-    st.dataframe(itik)
 
     # Diagram Total Pencari Kerja Tiap Tahun
     st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
     tahun_cols = ['2020', '2021', '2022', '2023', '2024']
-    mask = total_pencari[colname].str.contains("Total", case=False)
-    if mask.any():
-        jumlah = total_pencari[mask].iloc[0][tahun_cols]
-        fig, ax = plt.subplots()
-        ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
-        for i, val in enumerate(jumlah):
-            ax.text(i, val + 1, f"{val}")
-        st.pyplot(fig)
-    else:
-        st.warning("Data total pencari kerja tidak ditemukan.")
+    fig, ax = plt.subplots()
+    jumlah = total_pencari[total_pencari['Uraian'].str.contains("Total", case=False)].iloc[0][tahun_cols]
+    ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
+    for i, val in enumerate(jumlah):
+        ax.text(i, val + 1, f"{val}")
+    st.pyplot(fig)
 
     # Diagram Jumlah Pencari Kerja
     st.subheader("Diagram Jumlah Pencari Kerja")
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=total_pencari, y=colname, x='2024', palette='Blues', ax=ax)
+    plot = sns.barplot(data=total_pencari, y='Uraian', x='2024', palette='Blues', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
-    # Diagram Distribusi Tamatan Pendidikan Pencari Kerja
+    # Diagram Distribusi Tamatan Pendidikan Pencari Kerja 2024
     st.subheader("Diagram Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=pencari_pendidikan, y=colname, x='2024', palette='mako', ax=ax)
+    plot = sns.barplot(data=pencari_pendidikan, y='Uraian', x='2024', palette='mako', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
@@ -225,7 +214,7 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     # Diagram Tenaga Kerja di Luar Negeri
     st.subheader("Diagram Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=tenaga_ln, y=colname, x='2024', palette='crest', ax=ax)
+    plot = sns.barplot(data=tenaga_ln, y='Uraian', x='2024', palette='crest', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
