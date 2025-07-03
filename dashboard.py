@@ -184,8 +184,8 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     # Diagram Total Pencari Kerja Tiap Tahun
     st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
     tahun_cols = ['2020', '2021', '2022', '2023', '2024']
+    jumlah = total_pencari[tahun_cols].sum()
     fig, ax = plt.subplots()
-    jumlah = total_pencari[total_pencari['Uraian'].str.contains("Total", case=False)].iloc[0][tahun_cols]
     ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
     for i, val in enumerate(jumlah):
         ax.text(i, val + 1, f"{val}")
