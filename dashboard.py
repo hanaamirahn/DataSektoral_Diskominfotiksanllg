@@ -225,6 +225,16 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # DINPER
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
+    lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
+    st.subheader("Distribusi Luas Lahan Pertanian per Jenis (2023)")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+    
     buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
     st.subheader("Tabel Jumlah Produksi Buah per Kecamatan")
     st.dataframe(buah)
@@ -237,25 +247,7 @@ elif selected_opd == "Dinas Pertanian":
     st.subheader("Tabel Jumlah Produksi Obat Nabati per Kecamatan")
     st.dataframe(nabati)
 
-    ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
-    st.dataframe(ayam)
-
-    itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
-    st.dataframe(itik)
-
-    lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
-    st.subheader("Diagram Distribusi Luas Lahan Pertanian per Jenis (2023)")
-    fig, ax = plt.subplots()
-    plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
-    for p in plot.patches:
-        ax.annotate(f"{p.get_width():,.0f}",
-                    (p.get_width(), p.get_y() + p.get_height() / 2),
-                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
-    st.pyplot(fig)
-
-    st.subheader("Diagram Jumlah Produksi Komoditas Pertanian Tahun 2023")
+    st.subheader("Jumlah Produksi Komoditas Pertanian Tahun 2023")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=buah, y='Uraian', x='2023', palette='flare', ax=ax)
     for p in plot.patches:
@@ -264,7 +256,11 @@ elif selected_opd == "Dinas Pertanian":
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
-    st.subheader("Diagram Jumlah Populasi Ternak Ayam per Kecamatan (2023)")
+    ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
+    st.dataframe(ayam)
+
+    st.subheader("Jumlah Populasi Ternak Ayam per Kecamatan (2023)")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=ayam, y='Uraian', x='2023', palette='rocket', ax=ax)
     for p in plot.patches:
@@ -273,6 +269,11 @@ elif selected_opd == "Dinas Pertanian":
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
+
+    itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
+    st.dataframe(itik)
+    
     st.subheader("Diagram Jumlah Populasi Ternak Itik per Kecamatan")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=itik, y='Uraian', x='2023', palette='ch:s=.25,rot=-.25', ax=ax)
@@ -281,5 +282,3 @@ elif selected_opd == "Dinas Pertanian":
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
-
-
