@@ -3,15 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Konfigurasi halaman
-st.set_page_config(page_title="Data Statistik Sektoral", layout="wide")
-
-# Judul umum
+# Judul halaman
+st.set_page_config(page_title="Dashboard Statistik Lubuk Linggau", layout="wide")
 st.title("📊 Data Statistik Sektoral Kota Lubuk Linggau")
 st.markdown("---")
 
-# Sidebar navigasi
-menu = st.sidebar.radio("Pilih OPD", [
+# Sidebar menu
+menu = st.sidebar.radio("Pilih OPD:", [
     "Dinas Lingkungan Hidup (DLH)",
     "Dinas Tenaga Kerja",
     "Dinas Kesehatan",
@@ -19,70 +17,45 @@ menu = st.sidebar.radio("Pilih OPD", [
     "Dinas Pertanian"
 ])
 
-# Fungsi load data untuk masing-masing OPD
-@st.cache_data
-def load_dlh():
-    return pd.read_excel("data/DLH.xlsx")
-
-@st.cache_data
-def load_disnaker():
-    return pd.read_excel("data/disnaker.xlsx")
-
-@st.cache_data
-def load_dinkes():
-    return pd.read_excel("data/dinkes.xlsx")
-
-@st.cache_data
-def load_diskop():
-    return pd.read_excel("data/diskop.xlsx")
-
-@st.cache_data
-def load_dinper():
-    return pd.read_excel("data/dinper.xlsx")
-
-# Konten sesuai OPD
+# ========== 1. DLH ==========
 if menu == "Dinas Lingkungan Hidup (DLH)":
-    st.header("♻️ Statistik Dinas Lingkungan Hidup")
-    df = load_dlh()
-    st.dataframe(df)
-    if 'NILAI 2024 SEMESTER I' in df.columns:
-        st.subheader("Visualisasi Data")
-        fig, ax = plt.subplots()
-        sns.barplot(data=df, y="NAMA", x="NILAI 2024 SEMESTER I", ax=ax)
-        ax.set_title("Nilai Indikator DLH - 2024")
-        st.pyplot(fig)
+    st.header("♻️ Dinas Lingkungan Hidup")
+    # Contoh kode dari notebook DLH
+    import pandas as pd
+    dlh_df = pd.read_csv("/content/Dinas Lingkungan Hidup.csv")
+    alat_mask = dlh_df['NAMA'].str.contains("Jumlah", case=False)
+    alat_data = dlh_df[alat_mask][['NAMA', 'NILAI 2024 SEMESTER I']].copy()
+    alat_data['NILAI 2024 SEMESTER I'] = pd.to_numeric(alat_data['NILAI 2024 SEMESTER I'], errors='coerce')
+    st.dataframe(alat_data)
+    st.bar_chart(alat_data.set_index("NAMA"))
 
+# ========== 2. Disnaker ==========
 elif menu == "Dinas Tenaga Kerja":
-    st.header("👷 Statistik Dinas Tenaga Kerja")
-    df = load_disnaker()
+    st.header("👷 Dinas Tenaga Kerja")
+    df = pd.read_csv("/content/disnaker.csv")
     st.dataframe(df)
-    if 'Jumlah' in df.columns:
-        st.subheader("Visualisasi Data")
-        st.bar_chart(df.set_index('Keterangan')['Jumlah'])
+    st.bar_chart(df.set_index("Keterangan")["Jumlah"])
 
+# ========== 3. Dinkes ==========
 elif menu == "Dinas Kesehatan":
-    st.header("🏥 Statistik Dinas Kesehatan")
-    df = load_dinkes()
+    st.header("🏥 Dinas Kesehatan")
+    df = pd.read_csv("/content/dinkes.csv")
     st.dataframe(df)
-    if '2023' in df.columns:
-        st.subheader("Perbandingan Data")
-        st.line_chart(df.set_index('Uraian')['2023'])
+    if "2023" in df.columns:
+        st.line_chart(df.set_index("Uraian")["2023"])
 
+# ========== 4. Diskop ==========
 elif menu == "Dinas Koperasi dan UKM":
-    st.header("💼 Statistik Dinas Koperasi dan UKM")
-    df = load_diskop()
-    st.dataframe(df)
-    if '2024' in df.columns:
-        umkm_df = df[df['Uraian'].str.contains("UMKM", case=False)]
-        st.subheader("Jumlah UMKM per Bidang Usaha")
-        st.bar_chart(umkm_df.set_index("Uraian")["2024"])
+    st.header("💼 Dinas Koperasi dan UKM")
+    df = pd.read_csv("/content/diskop.csv")
+    umkm_df = df[df["Uraian"].str.contains("UMKM", case=False)].copy()
+    st.dataframe(umkm_df)
+    st.bar_chart(umkm_df.set_index("Uraian")["2024"])
 
+# ========== 5. Dinper ==========
 elif menu == "Dinas Pertanian":
-    st.header("🌾 Statistik Dinas Pertanian")
-    df = load_dinper()
+    st.header("🌾 Dinas Pertanian")
+    df = pd.read_csv("/content/Dinas Pertanian.csv")
     st.dataframe(df)
-    if '2023' in df.columns:
-        st.subheader("Tren Produksi Pertanian")
-        fig, ax = plt.subplots()
-        df.plot(kind='bar', x='Uraian', y='2023', ax=ax)
-        st.pyplot(fig)
+    if "2023" in df.columns:
+        st.bar_chart(df.set_index("Uraian")["2023"])
