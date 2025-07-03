@@ -161,3 +161,125 @@ elif selected_opd == "Dinas Kesehatan":
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(nakes['2024'], labels=nakes['Jenis Data'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
+
+# -----------------------------
+# DISNAKER
+# -----------------------------
+elif selected_opd == "Dinas Ketenagakerjaan":
+    # Total Keseluruhan & Pencari Kerja per Tahun
+    total_pencari = df[df['Uraian'].str.contains("Pencari Kerja", case=False)].copy()
+    st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
+    st.dataframe(total_pencari)
+
+    # Jumlah Pencari Kerja Berdasarkan Pendidikan
+    pencari_pendidikan = df[df['Uraian'].str.contains("Pendidikan", case=False)].copy()
+    st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
+    st.dataframe(pencari_pendidikan)
+
+    # Jumlah Tenaga Kerja Luar Negeri
+    tenaga_ln = df[df['Uraian'].str.contains("Luar Negeri", case=False)].copy()
+    st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
+    st.dataframe(tenaga_ln)
+
+    # Diagram Total Pencari Kerja Tiap Tahun
+    st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
+    tahun_cols = ['2020', '2021', '2022', '2023', '2024']
+    fig, ax = plt.subplots()
+    jumlah = total_pencari[total_pencari['Uraian'].str.contains("Total", case=False)].iloc[0][tahun_cols]
+    ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
+    for i, val in enumerate(jumlah):
+        ax.text(i, val + 1, f"{val}")
+    st.pyplot(fig)
+
+    # Diagram Jumlah Pencari Kerja
+    st.subheader("Diagram Jumlah Pencari Kerja")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=total_pencari, y='Uraian', x='2024', palette='Blues', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    # Diagram Distribusi Tamatan Pendidikan Pencari Kerja 2024
+    st.subheader("Diagram Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=pencari_pendidikan, y='Uraian', x='2024', palette='mako', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    # Diagram Tenaga Kerja di Luar Negeri
+    st.subheader("Diagram Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=tenaga_ln, y='Uraian', x='2024', palette='crest', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+# -----------------------------
+# DINPER
+# -----------------------------
+elif selected_opd == "Dinas Pertanian":
+    buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Buah per Kecamatan")
+    st.dataframe(buah)
+
+    sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Sayur per Kecamatan")
+    st.dataframe(sayur)
+
+    nabati = df[df['Uraian'].str.contains("Obat Nabati", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Obat Nabati per Kecamatan")
+    st.dataframe(nabati)
+
+    ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
+    st.dataframe(ayam)
+
+    itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
+    st.dataframe(itik)
+
+    lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
+    st.subheader("Diagram Distribusi Luas Lahan Pertanian per Jenis (2023)")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    st.subheader("Diagram Jumlah Produksi Komoditas Pertanian Tahun 2023")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=buah, y='Uraian', x='2023', palette='flare', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    st.subheader("Diagram Jumlah Populasi Ternak Ayam per Kecamatan (2023)")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=ayam, y='Uraian', x='2023', palette='rocket', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    st.subheader("Diagram Jumlah Populasi Ternak Itik per Kecamatan")
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=itik, y='Uraian', x='2023', palette='ch:s=.25,rot=-.25', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+
