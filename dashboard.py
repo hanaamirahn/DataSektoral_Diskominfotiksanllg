@@ -11,11 +11,11 @@ st.set_page_config(
 st.title("📊 DATA STATISTIK SEKTORAL KOTA LUBUK LINGGAU")
 
 opd_list = {
-    "Dinas Lingkungan Hidup": "dataset/DLH.csv",
-    "Dinas Koperasi dan UMKM": "dataset/Dinas Koperasi UMKM.csv",
-    "Dinas Kesehatan": "dataset/Dinkes.csv",
-    "Dinas Ketenagakerjaan": "dataset/Disnaker.csv",
-    "Dinas Pertanian": "dataset/Dinas Pertanian.csv",
+    "Dinas Lingkungan Hidup": "dataset/dlh_clean.csv",
+    "Dinas Koperasi dan UMKM": "dataset/diskop_clean.csv",
+    "Dinas Kesehatan": "dataset/dinkes_clean.csv",
+    "Dinas Ketenagakerjaan": "dataset/disnaker_clean.csv",
+    "Dinas Pertanian": "dataset/dinper_clean.csv",
 }
 
 selected_opd = st.sidebar.selectbox(
