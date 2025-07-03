@@ -43,7 +43,7 @@ st.header(f"📌 Data & Visualisasi {selected_opd}")
 # -----------------------------
 # DLH
 # -----------------------------
-if selected_opd == "DLH":
+if selected_opd == "Dinas Lingkungan Hidup":
     # Volume Air Limbah
     limbah_data = df[df['NAMA'].str.contains("Volume Air Limbah", case=False)].copy()
     limbah_data['Kecamatan'] = limbah_data['NAMA'].str.replace('Volume Air Limbah Kecamatan ', '', regex=False)
@@ -94,7 +94,7 @@ if selected_opd == "DLH":
 # -----------------------------
 # DISKOP
 # -----------------------------
-elif selected_opd == "DISKOP":
+elif selected_opd == "Dinas Koperasi dan UMKM":
     umkm_data = df[df['Uraian'].str.contains("UMKM", case=False)].copy()
     umkm_data['Bidang Usaha'] = umkm_data['Uraian'].str.replace('Jumlah UMKM Bidang ', '', regex=False)
     umkm_table = umkm_data[['Bidang Usaha', '2024']].rename(columns={'2024': 'Jumlah'})
@@ -134,7 +134,7 @@ elif selected_opd == "DISKOP":
 # -----------------------------
 # DINKES
 # -----------------------------
-elif selected_opd == "DINKES":
+elif selected_opd == "Dinas Kesehatan":
     penyakit = df[df['Jenis Data'].str.contains("Penderita", case=False)].copy()
     st.subheader("Tabel Jenis Penyakit Menular Tahun 2024")
     st.dataframe(penyakit[['Jenis Data', '2024']])
