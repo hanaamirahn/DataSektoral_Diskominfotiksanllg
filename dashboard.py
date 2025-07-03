@@ -167,3 +167,113 @@ elif selected_opd == "Dinas Kesehatan":
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(nakes['2024'], labels=nakes['Jenis Data'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
+
+# -----------------------------
+# DISNAKER
+# -----------------------------
+elif selected_opd == "Dinas Ketenagakerjaan":
+    # Total Keseluruhan & Total Pencari Kerja per Tahun
+    total_pencari = df[df['Uraian'].str.contains("Pencari Kerja", case=False)].copy()
+    st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
+    st.dataframe(total_pencari)
+
+    # Jumlah Pencari Kerja Berdasarkan Pendidikan
+    pencari_pendidikan = df[df['Uraian'].str.contains("Pendidikan", case=False)].copy()
+    st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
+    st.dataframe(pencari_pendidikan)
+
+    # Jumlah Tenaga Kerja Luar Negeri
+    tenaga_ln = df[df['Uraian'].str.contains("Luar Negeri", case=False)].copy()
+    st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri dari Kota Lubuk Linggau")
+    st.dataframe(tenaga_ln)
+
+    # Populasi Ternak Ayam
+    ternak_ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
+    st.dataframe(ternak_ayam)
+
+    # Populasi Ternak Itik
+    ternak_itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
+    st.dataframe(ternak_itik)
+
+    # Visualisasi: Total Pencari Kerja Tiap Tahun
+    st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
+    tahun_cols = ['2020', '2021', '2022', '2023', '2024']
+    total_per_tahun = total_pencari[total_pencari['Uraian'].str.contains("Total", case=False)].copy()
+    fig, ax = plt.subplots()
+    ax.plot(tahun_cols, total_per_tahun[tahun_cols].values[0], marker='o', color='green')
+    st.pyplot(fig)
+
+    # Visualisasi: Jumlah Pencari Kerja
+    st.subheader("Diagram Jumlah Pencari Kerja")
+    fig, ax = plt.subplots()
+    sns.barplot(data=total_pencari, x='Uraian', y='2024', palette='Blues', ax=ax)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=30, ha='right')
+    st.pyplot(fig)
+
+    # Visualisasi: Distribusi Tamatan Pendidikan Pencari Kerja
+    st.subheader("Diagram Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
+    fig, ax = plt.subplots()
+    sns.barplot(data=pencari_pendidikan, x='2024', y='Uraian', palette='mako', ax=ax)
+    st.pyplot(fig)
+
+    # Visualisasi: Tenaga Kerja Luar Negeri
+    st.subheader("Diagram Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
+    fig, ax = plt.subplots()
+    sns.barplot(data=tenaga_ln, x='2024', y='Uraian', palette='crest', ax=ax)
+    st.pyplot(fig)
+
+# -----------------------------
+# DINPER
+# -----------------------------
+elif selected_opd == "Dinas Pertanian":
+    # Produksi Buah
+    buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Buah per Kecamatan")
+    st.dataframe(buah)
+
+    # Produksi Sayur
+    sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Sayur per Kecamatan")
+    st.dataframe(sayur)
+
+    # Produksi Obat Nabati
+    nabati = df[df['Uraian'].str.contains("Obat Nabati", case=False)].copy()
+    st.subheader("Tabel Jumlah Produksi Obat Nabati per Kecamatan")
+    st.dataframe(nabati)
+
+    # Populasi Ternak Ayam
+    ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
+    st.dataframe(ayam)
+
+    # Populasi Ternak Itik
+    itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
+    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
+    st.dataframe(itik)
+
+    # Visualisasi: Distribusi Luas Lahan Pertanian
+    lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
+    st.subheader("Diagram Distribusi Luas Lahan Pertanian per Jenis (2023)")
+    fig, ax = plt.subplots()
+    sns.barplot(data=lahan, x='2023', y='Uraian', palette='Set2', ax=ax)
+    st.pyplot(fig)
+
+    # Visualisasi: Jumlah Produksi Komoditas Pertanian
+    st.subheader("Diagram Jumlah Produksi Komoditas Pertanian Tahun 2023")
+    fig, ax = plt.subplots()
+    sns.barplot(data=buah, x='2023', y='Uraian', palette='flare', ax=ax)
+    st.pyplot(fig)
+
+    # Visualisasi: Populasi Ternak Ayam
+    st.subheader("Diagram Jumlah Populasi Ternak Ayam per Kecamatan (2023)")
+    fig, ax = plt.subplots()
+    sns.barplot(data=ayam, x='2023', y='Uraian', palette='rocket', ax=ax)
+    st.pyplot(fig)
+
+    # Visualisasi: Populasi Ternak Itik
+    st.subheader("Diagram Jumlah Populasi Ternak Itik per Kecamatan")
+    fig, ax = plt.subplots()
+    sns.barplot(data=itik, x='2023', y='Uraian', palette='ch:s=.25,rot=-.25', ax=ax)
+    st.pyplot(fig)
