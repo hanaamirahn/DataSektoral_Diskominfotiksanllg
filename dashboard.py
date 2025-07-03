@@ -17,11 +17,11 @@ st.title("📊 DATA STATISTIK SEKTORAL KOTA LUBUK LINGGAU")
 # SIDEBAR PILIHAN OPD
 # -----------------------------
 opd_list = {
-    "DLH": "dataset/DLH.csv",
-    "DISKOP": "dataset/Dinas Koperasi UMKM.csv",
-    "DINKES": "dataset/Dinkes.csv",
-    "DINAKER": "dataset/Disnaker.csv",
-    "DINPER": "dataset/Dinas Pertanian.csv",
+    "Dinas Lingkungan Hidup": "dataset/DLH.csv",
+    "Dinas Koperasi dan UMKM": "dataset/Dinas Koperasi UMKM.csv",
+    "Dinas Kesehatan": "dataset/Dinkes.csv",
+    "Dinas Ketenagakerjaan": "dataset/Disnaker.csv",
+    "Dinas Pertanian": "dataset/Dinas Pertanian.csv",
 }
 
 selected_opd = st.sidebar.selectbox(
