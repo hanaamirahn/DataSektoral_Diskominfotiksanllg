@@ -166,75 +166,127 @@ elif selected_opd == "Dinas Kesehatan":
 # DISNAKER
 # -----------------------------
 elif selected_opd == "Dinas Ketenagakerjaan":
-    # Total Keseluruhan & Pencari Kerja per Tahun
-    total_pencari = df[df['Uraian'].str.contains("Pencari Kerja", case=False)].copy()
-    st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
-    st.dataframe(total_pencari)
+    st.title("Visualisasi Data Dinas Ketenagakerjaan")
 
-    # Jumlah Pencari Kerja Berdasarkan Pendidikan
-    pencari_pendidikan = df[df['Uraian'].str.contains("Pendidikan", case=False)].copy()
-    st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
-    st.dataframe(pencari_pendidikan)
-
-    # Jumlah Tenaga Kerja Luar Negeri
-    tenaga_ln = df[df['Uraian'].str.contains("Luar Negeri", case=False)].copy()
-    st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
-    st.dataframe(tenaga_ln)
-
-   # Diagram Total Pencari Kerja Tiap Tahun
-    st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
-
-    # Ambil hanya kolom tahun dari dataset asli
+    # Ambil hanya kolom tahun
     tahun_cols = [col for col in df.columns if col.isdigit()]
 
-    # Filter berdasarkan pencari kerja laki-laki dan perempuan
-    df_laki = df[df['Uraian'].str.contains("Laki", case=False)]
-    df_perempuan = df[df['Uraian'].str.contains("Perempuan", case=False)]
+    # ===============================
+    # 1. Tabel Total Keseluruhan & Pencari Kerja Per Tahun
+    # ===============================
+    df_laki = df[df["Uraian"].str.contains("Laki", case=False)].copy()
+    df_perempuan = df[df["Uraian"].str.contains("Perempuan", case=False)].copy()
 
-    # Hitung total per tahun
-    total_laki = df_laki[tahun_cols].sum(numeric_only=True)
-    total_perempuan = df_perempuan[tahun_cols].sum(numeric_only=True)
+    total_laki = df_laki[tahun_cols].astype(int).sum()
+    total_perempuan = df_perempuan[tahun_cols].astype(int).sum()
     total_keseluruhan = total_laki + total_perempuan
-    
-    # Plot
+
+    tabel_per_tahun = pd.DataFrame({
+        "Tahun": tahun_cols,
+        "Total Laki-laki": total_laki.values,
+        "Total Perempuan": total_perempuan.values,
+        "Total Keseluruhan": total_keseluruhan.values
+    })
+
+    st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
+    st.dataframe(tabel_per_tahun)
+
+    # ===============================
+    # 2. Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan
+    # ===============================
+    df_pendidikan = df[df['Uraian'].str.contains('Tamatan', case=False)].copy()
+    df_pendidikan[tahun_cols] = df_pendidikan[tahun_cols].apply(pd.to_numeric, errors='coerce')
+    df_pendidikan['Total'] = df_pendidikan[tahun_cols].sum(axis=1)
+    df_pendidikan.set_index('Uraian', inplace=True)
+
+    st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
+    st.dataframe(df_pendidikan[tahun_cols + ['Total']])
+
+    # ===============================
+    # 3. Tabel Jumlah Tenaga Kerja di Luar Negeri
+    # ===============================
+    df_ln = df[df["Uraian"].str.contains("Tenaga Kerja di Luar Negeri", case=False)].copy()
+    df_ln[tahun_cols] = df_ln[tahun_cols].apply(pd.to_numeric, errors='coerce')
+    total_ln_pertahun = df_ln[tahun_cols].sum()
+
+    tabel_ln = pd.DataFrame({
+        "Tahun": tahun_cols,
+        "Jumlah": total_ln_pertahun.values
+    })
+    tabel_ln.loc[len(tabel_ln)] = ["Total", total_ln_pertahun.sum()]
+
+    st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
+    st.dataframe(tabel_ln)
+
+    # ===============================
+    # 4. Diagram Total Pencari Kerja Tiap Tahun
+    # ===============================
+    st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
     fig, ax = plt.subplots()
     ax.plot(tahun_cols, total_keseluruhan.values, marker='o', linestyle='-', color='green')
     for i, val in enumerate(total_keseluruhan.values):
-        ax.text(i, val + 1, f"{int(val):,}", ha='center')
+        ax.text(i, val + 10, f"{int(val):,}", ha='center')
     ax.set_xlabel("Tahun")
-    ax.set_ylabel("Jumlah Pencari Kerja")
+    ax.set_ylabel("Jumlah")
     ax.set_title("Total Pencari Kerja Tiap Tahun")
     st.pyplot(fig)
 
-    # Diagram Jumlah Pencari Kerja
-    st.subheader("Diagram Jumlah Pencari Kerja")
-    fig, ax = plt.subplots()
-    plot = sns.barplot(data=total_pencari, y='Uraian', x='2024', palette='Blues', ax=ax)
-    for p in plot.patches:
-        ax.annotate(f"{p.get_width():,.0f}",
-                    (p.get_width(), p.get_y() + p.get_height() / 2),
-                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    # ===============================
+    # 5. Diagram Jumlah Pencari Kerja Laki-laki dan Perempuan
+    # ===============================
+    st.subheader("Diagram Jumlah Pencari Kerja Laki-laki dan Perempuan")
+    df_total = pd.DataFrame({
+        "Tahun": tahun_cols,
+        "Laki-laki": total_laki.values,
+        "Perempuan": total_perempuan.values
+    })
+
+    df_long = df_total.melt(id_vars="Tahun", var_name="Jenis Kelamin", value_name="Jumlah")
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(data=df_long, x="Tahun", y="Jumlah", hue="Jenis Kelamin", ax=ax,
+                palette={"Laki-laki": "#A2C8EC", "Perempuan": "#F7B6C2"})
+    for container in ax.containers:
+        ax.bar_label(container, fmt='%.0f', label_type='edge')
+    ax.set_title("Jumlah Pencari Kerja per Jenis Kelamin")
     st.pyplot(fig)
 
-    # Diagram Distribusi Tamatan Pendidikan Pencari Kerja 2024
-    st.subheader("Diagram Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
-    fig, ax = plt.subplots()
-    plot = sns.barplot(data=pencari_pendidikan, y='Uraian', x='2024', palette='mako', ax=ax)
-    for p in plot.patches:
-        ax.annotate(f"{p.get_width():,.0f}",
-                    (p.get_width(), p.get_y() + p.get_height() / 2),
-                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    # ===============================
+    # 6. Diagram Pie Distribusi Pendidikan Tahun 2024
+    # ===============================
+    st.subheader("Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
+    data_2024 = df_pendidikan['2024']
+    data_2024 = data_2024[data_2024 > 0]
+    short_labels = [label.replace("Tamatan ", "") for label in data_2024.index]
+    colors = sns.color_palette("pastel")[0:len(data_2024)]
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+    patches, texts, autotexts = ax.pie(
+        data_2024.values,
+        labels=short_labels,
+        autopct='%1.1f%%',
+        startangle=140,
+        colors=colors,
+        textprops={'fontsize': 11}
+    )
+    for autotext in autotexts:
+        autotext.set_color('black')
+    ax.set_title("Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024", fontsize=15)
     st.pyplot(fig)
 
-    # Diagram Tenaga Kerja di Luar Negeri
-    st.subheader("Diagram Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
+    # ===============================
+    # 7. Diagram Jumlah TKI di Luar Negeri
+    # ===============================
+    st.subheader("Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=tenaga_ln, y='Uraian', x='2024', palette='crest', ax=ax)
-    for p in plot.patches:
-        ax.annotate(f"{p.get_width():,.0f}",
-                    (p.get_width(), p.get_y() + p.get_height() / 2),
-                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    sns.barplot(data=tabel_ln[:-1], x='Tahun', y='Jumlah', palette='crest', ax=ax)
+    for p in ax.patches:
+        ax.annotate(f"{int(p.get_height()):,}",
+                    (p.get_x() + p.get_width() / 2., p.get_height()),
+                    ha='center', va='bottom')
+    ax.set_ylabel("Jumlah Tenaga Kerja")
+    ax.set_title("Jumlah TKI dari Lubuk Linggau")
     st.pyplot(fig)
+
 
 
 # -----------------------------
