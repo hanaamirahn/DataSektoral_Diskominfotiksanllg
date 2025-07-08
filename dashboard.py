@@ -181,14 +181,29 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
     st.dataframe(tenaga_ln)
 
-    # Diagram Total Pencari Kerja Tiap Tahun
+   # Diagram Total Pencari Kerja Tiap Tahun
     st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
-    tahun_cols = ['2020', '2021', '2022', '2023', '2024']
-    jumlah = total_pencari[tahun_cols].sum()
+
+    # Ambil hanya kolom tahun dari dataset asli
+    tahun_cols = [col for col in df.columns if col.isdigit()]
+
+    # Filter berdasarkan pencari kerja laki-laki dan perempuan
+    df_laki = df[df['Uraian'].str.contains("Laki", case=False)]
+    df_perempuan = df[df['Uraian'].str.contains("Perempuan", case=False)]
+
+    # Hitung total per tahun
+    total_laki = df_laki[tahun_cols].sum(numeric_only=True)
+    total_perempuan = df_perempuan[tahun_cols].sum(numeric_only=True)
+    total_keseluruhan = total_laki + total_perempuan
+    
+    # Plot
     fig, ax = plt.subplots()
-    ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
-    for i, val in enumerate(jumlah):
-        ax.text(i, val + 1, f"{val}")
+    ax.plot(tahun_cols, total_keseluruhan.values, marker='o', linestyle='-', color='green')
+    for i, val in enumerate(total_keseluruhan.values):
+        ax.text(i, val + 1, f"{int(val):,}", ha='center')
+    ax.set_xlabel("Tahun")
+    ax.set_ylabel("Jumlah Pencari Kerja")
+    ax.set_title("Total Pencari Kerja Tiap Tahun")
     st.pyplot(fig)
 
     # Diagram Jumlah Pencari Kerja
