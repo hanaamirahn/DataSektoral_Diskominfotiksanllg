@@ -289,7 +289,6 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     st.pyplot(fig)
 
 
-
 # -----------------------------
 # DINPER
 # -----------------------------
