@@ -183,12 +183,27 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 
     # Diagram Total Pencari Kerja Tiap Tahun
     st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
-    tahun_cols = ['2020', '2021', '2022', '2023', '2024']
-    jumlah = total_pencari[tahun_cols].sum()
+
+    # Tentukan kolom tahun yang valid dari data
+    tahun_cols = [col for col in total_pencari.columns if col.isdigit()]
+
+    # Pisahkan Laki-laki dan Perempuan
+    df_pencarikerjalaki = total_pencari[total_pencari['Uraian'].str.contains("Laki", case=False)]
+    df_pencarikerjaperempuan = total_pencari[total_pencari['Uraian'].str.contains("Perempuan", case=False)]
+
+    # Hitung total per tahun
+    total_laki_per_tahun = df_pencarikerjalaki[tahun_cols].astype(int).sum()
+    total_perempuan_per_tahun = df_pencarikerjaperempuan[tahun_cols].astype(int).sum()
+
+    # Total keseluruhan per tahun
+    jumlah = total_laki_per_tahun + total_perempuan_per_tahun
+
     fig, ax = plt.subplots()
     ax.plot(tahun_cols, jumlah, marker='o', linestyle='-', color='green')
     for i, val in enumerate(jumlah):
         ax.text(i, val + 1, f"{val}")
+    ax.set_xlabel("Tahun")
+    ax.set_ylabel("Jumlah Pencari Kerja")
     st.pyplot(fig)
 
     # Diagram Jumlah Pencari Kerja
