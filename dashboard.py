@@ -212,7 +212,6 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     # ===============================
     # Diagram Total Pencari Kerja Tiap Tahun
     # ===============================
-    st.subheader("Diagram Total Pencari Kerja Tiap Tahun")
     fig, ax = plt.subplots()
     ax.plot(tahun_cols, total_keseluruhan.values, marker='o', linestyle='-', color='green')
     for i, val in enumerate(total_keseluruhan.values):
