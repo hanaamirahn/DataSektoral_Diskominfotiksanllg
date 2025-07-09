@@ -122,7 +122,7 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.subheader("Jumlah Koperasi Aktif Serba Usaha Mandiri Tahun (2022–2024)")
     st.dataframe(serba_aktif)
 
-    fig, ax = plt.subplots(figsize=(6, 4))  # lebih kecil
+    fig, ax = plt.subplots(figsize=(4, 2))  
     jumlah = [serba_aktif[tahun].values[0] for tahun in tahun]
     bars = ax.barh(tahun, jumlah, color='skyblue')
     for bar in bars:
