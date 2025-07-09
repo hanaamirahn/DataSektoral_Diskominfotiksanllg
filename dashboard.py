@@ -47,7 +47,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     limbah_table = limbah_data[['Kecamatan', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Volume Limbah (Liter)'})
     total = limbah_table['Volume Limbah (Liter)'].sum()
     limbah_table = pd.concat([limbah_table, pd.DataFrame({'Kecamatan': ['Total'], 'Volume Limbah (Liter)': [total]})], ignore_index=True)
-    st.subheader("Volume Air Limbah Di Kota Lubuklinggau Tahun 2024")
+    st.subheader("Volume Air Limbah Di Kota Lubuk Linggau Tahun 2024")
     st.dataframe(limbah_table)
 
     fig, ax = plt.subplots(figsize=(10, 6))
