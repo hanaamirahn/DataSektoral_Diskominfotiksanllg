@@ -50,7 +50,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     st.subheader("Volume Air Limbah Tahun 2024")
     st.dataframe(limbah_table)
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=limbah_table[limbah_table['Kecamatan'] != 'Total'], x='Kecamatan', y='Volume Limbah (Liter)', palette="Spectral", ax=ax)
     plt.xticks(rotation=45)
     for p in plot.patches:
