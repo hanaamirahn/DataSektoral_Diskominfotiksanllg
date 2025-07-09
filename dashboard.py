@@ -230,13 +230,12 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     df_pendidikan['Total'] = df_pendidikan[tahun_cols].sum(axis=1)
     df_pendidikan.set_index('Uraian', inplace=True)
 
-    st.subheader("Tabel Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
+    st.subheader("Jumlah Pencari Kerja Berdasarkan Pendidikan per Tahun")
     st.dataframe(df_pendidikan[tahun_cols + ['Total']])
 
     # ===============================
     # Diagram Pie Distribusi Pendidikan Tahun 2024
     # ===============================
-    st.subheader("Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024")
     data_2024 = df_pendidikan['2024']
     data_2024 = data_2024[data_2024 > 0]
     short_labels = [label.replace("Tamatan ", "") for label in data_2024.index]
@@ -253,7 +252,7 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     )
     for autotext in autotexts:
         autotext.set_color('black')
-    ax.set_title("Distribusi Tamatan Pendidikan Pencari Kerja Tahun 2024", fontsize=15)
+    ax.set_title("Tamatan Pendidikan Pencari Kerja Tahun 2024", fontsize=15)
     st.pyplot(fig)
 
     # ===============================
@@ -269,13 +268,12 @@ elif selected_opd == "Dinas Ketenagakerjaan":
     })
     tabel_ln.loc[len(tabel_ln)] = ["Total", total_ln_pertahun.sum()]
 
-    st.subheader("Tabel Jumlah Tenaga Kerja di Luar Negeri")
+    st.subheader("Jumlah Tenaga Kerja Dari Kota Lubuk Linggau di Luar Negeri")
     st.dataframe(tabel_ln)
 
     # ===============================
     # Diagram Jumlah TKI di Luar Negeri
     # ===============================
-    st.subheader("Jumlah Tenaga Kerja Dari Lubuk Linggau di Luar Negeri")
     fig, ax = plt.subplots()
     sns.barplot(data=tabel_ln[:-1], x='Tahun', y='Jumlah', palette='crest', ax=ax)
     for p in ax.patches:
