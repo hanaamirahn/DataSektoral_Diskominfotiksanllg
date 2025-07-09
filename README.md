@@ -1,4 +1,4 @@
-# 📊 Data Statistik Sektoral Kota Lubuk Linggau
+# 📊 Data Statistik Sektoral Kota Lubuk Linggau📊
 
 ## Tentang Proyek
 
@@ -10,15 +10,14 @@ Proyek ini adalah dashboard interaktif berbasis **Streamlit** yang menyajikan **
 - **Dinas Ketenagakerjaan**
 - **Dinas Pertanian**
 
-Dashboard ini dirancang untuk mempermudah masyarakat, peneliti, maupun pemerintah dalam **mengakses, menganalisis, dan memvisualisasikan data sektoral** secara real-time melalui tampilan yang **informatif, interaktif, dan mudah dipahami**.
+Dashboard ini dirancang untuk mempermudah dalam mengakses data sektoral melalui tampilan yang  informatif, interaktif, dan mudah dipahami.
 
 ---
 
 ## Tujuan
 
-- Menyediakan **informasi statistik sektoral** yang akurat dan ter-update.
-- Membantu proses **monitoring dan evaluasi program kerja OPD**.
-- Menjadi sarana **transparansi data publik** bagi masyarakat Kota Lubuk Linggau.
+- Menyediakan informasi statistik sektoral.
+- Menjadi sarana transparansi data publik bagi masyarakat Kota Lubuk Linggau.
 - Mendukung proses pengambilan kebijakan berbasis data.
 
 ---
