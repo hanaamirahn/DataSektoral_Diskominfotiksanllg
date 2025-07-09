@@ -47,7 +47,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     limbah_table = limbah_data[['Kecamatan', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Volume Limbah (Liter)'})
     total = limbah_table['Volume Limbah (Liter)'].sum()
     limbah_table = pd.concat([limbah_table, pd.DataFrame({'Kecamatan': ['Total'], 'Volume Limbah (Liter)': [total]})], ignore_index=True)
-    st.subheader("Volume Air Limbah Di Kota Lubuk Linggau Tahun 2024")
+    st.subheader("Volume Air Limbah Tahun 2024")
     st.dataframe(limbah_table)
 
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -64,7 +64,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     komposisi_table = komposisi_data[['Jenis Sampah', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Persentase (%)'})
     total = komposisi_table['Persentase (%)'].sum()
     komposisi_table = pd.concat([komposisi_table, pd.DataFrame({'Jenis Sampah': ['Total'], 'Persentase (%)': [total]})], ignore_index=True)
-    st.subheader("Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
+    st.subheader("Komposisi Sampah Tahun 2024")
     st.dataframe(komposisi_table)
 
     fig, ax = plt.subplots(figsize=(8, 8))
@@ -76,7 +76,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     alat_table = alat_data[['Jenis Alat', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Jumlah'})
     total = alat_table['Jumlah'].sum()
     alat_table = pd.concat([alat_table, pd.DataFrame({'Jenis Alat': ['Total'], 'Jumlah': [total]})], ignore_index=True)
-    st.subheader("Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
+    st.subheader("Jumlah Alat Angkut Sampah Tahun 2024")
     st.dataframe(alat_table)
 
     fig, ax = plt.subplots(figsize=(10, 6))
