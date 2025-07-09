@@ -293,10 +293,17 @@ elif selected_opd == "Dinas Pertanian":
     st.subheader("Luas Lahan Pertanian per Jenis Tahun 2023")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
+
+    # Tambahkan label sumbu X dan Y
+    ax.set_xlabel("Tahun 2023")
+    ax.set_ylabel("Jenis Lahan")
+
+    # Tambahkan anotasi di batang
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    
     st.pyplot(fig)
     
     buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
