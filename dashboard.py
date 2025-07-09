@@ -65,10 +65,10 @@ if selected_opd == "Dinas Lingkungan Hidup":
     komposisi_table = komposisi_data[['Jenis Sampah', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Persentase (%)'})
     total = komposisi_table['Persentase (%)'].sum()
     komposisi_table = pd.concat([komposisi_table, pd.DataFrame({'Jenis Sampah': ['Total'], 'Persentase (%)': [total]})], ignore_index=True)
-    st.subheader("Tabel Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
+    st.subheader("Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
     st.dataframe(komposisi_table)
 
-    st.subheader("Diagram Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
+    st.subheader("Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(komposisi_table[:-1]['Persentase (%)'], labels=komposisi_table[:-1]['Jenis Sampah'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
@@ -78,10 +78,10 @@ if selected_opd == "Dinas Lingkungan Hidup":
     alat_table = alat_data[['Jenis Alat', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Jumlah'})
     total = alat_table['Jumlah'].sum()
     alat_table = pd.concat([alat_table, pd.DataFrame({'Jenis Alat': ['Total'], 'Jumlah': [total]})], ignore_index=True)
-    st.subheader("Tabel Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
+    st.subheader("Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
     st.dataframe(alat_table)
 
-    st.subheader("Diagram Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
+    st.subheader("Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=alat_table[:-1], y='Jenis Alat', x='Jumlah', palette="Dark2", ax=ax)
     for p in plot.patches:
