@@ -98,7 +98,7 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.subheader("Jumlah UMKM Tahun 2024")
     st.dataframe(umkm_table)
 
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(6, 4))
     plot = sns.barplot(data=umkm_table[:-1], y='Bidang Usaha', x='Jumlah', palette="coolwarm", ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
