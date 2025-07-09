@@ -50,7 +50,6 @@ if selected_opd == "Dinas Lingkungan Hidup":
     st.subheader("Volume Air Limbah Di Kota Lubuklinggau Tahun 2024")
     st.dataframe(limbah_table)
 
-    st.subheader("Volume Air Limbah per Kecamatan Tahun 2024")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=limbah_table[limbah_table['Kecamatan'] != 'Total'], x='Kecamatan', y='Volume Limbah (Liter)', palette="Spectral", ax=ax)
     plt.xticks(rotation=45)
@@ -68,7 +67,6 @@ if selected_opd == "Dinas Lingkungan Hidup":
     st.subheader("Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
     st.dataframe(komposisi_table)
 
-    st.subheader("Komposisi Sampah Kota Lubuk Linggau Tahun 2024")
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(komposisi_table[:-1]['Persentase (%)'], labels=komposisi_table[:-1]['Jenis Sampah'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
@@ -81,7 +79,6 @@ if selected_opd == "Dinas Lingkungan Hidup":
     st.subheader("Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
     st.dataframe(alat_table)
 
-    st.subheader("Jumlah Alat Angkut Sampah Kota Lubuklinggau Tahun 2024")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=alat_table[:-1], y='Jenis Alat', x='Jumlah', palette="Dark2", ax=ax)
     for p in plot.patches:
