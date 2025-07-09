@@ -328,10 +328,9 @@ elif selected_opd == "Dinas Pertanian":
     st.pyplot(fig)
 
     ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Ayam per Kecamatan")
+    st.subheader("Jumlah Populasi Ternak Ayam per Kecamatan Tahun 2023")
     st.dataframe(ayam)
 
-    st.subheader("Jumlah Populasi Ternak Ayam per Kecamatan (2023)")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=ayam, y='Uraian', x='2023', palette='rocket', ax=ax)
     for p in plot.patches:
@@ -342,10 +341,9 @@ elif selected_opd == "Dinas Pertanian":
 
 
     itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
-    st.subheader("Tabel Jumlah Populasi Ternak Itik per Kecamatan")
+    st.subheader("Jumlah Populasi Ternak Itik per Kecamatan Tahun 2023")
     st.dataframe(itik)
-    
-    st.subheader("Diagram Jumlah Populasi Ternak Itik per Kecamatan")
+
     fig, ax = plt.subplots()
     plot = sns.barplot(data=itik, y='Uraian', x='2023', palette='ch:s=.25,rot=-.25', ax=ax)
     for p in plot.patches:
