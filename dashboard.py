@@ -8,7 +8,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("🏛️ DATA STATISTIK SEKTORAL KOTA LUBUK LINGGAU 📊")
+st.markdown("🏛️ DATA STATISTIK SEKTORAL KOTA LUBUK LINGGAU 📊")
 
 opd_list = {
     "Dinas Lingkungan Hidup": "dataset/dlh_clean.csv",
