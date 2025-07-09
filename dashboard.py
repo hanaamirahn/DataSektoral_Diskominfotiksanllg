@@ -67,7 +67,7 @@ if selected_opd == "Dinas Lingkungan Hidup":
     st.subheader("Komposisi Sampah Tahun 2024")
     st.dataframe(komposisi_table)
 
-    fig, ax = plt.subplots(figsize=(4, 4))
+    fig, ax = plt.subplots(figsize=(5, 5))
     ax.pie(komposisi_table[:-1]['Persentase (%)'], labels=komposisi_table[:-1]['Jenis Sampah'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
 
