@@ -167,7 +167,6 @@ elif selected_opd == "Dinas Kesehatan":
 # DISNAKER
 # -----------------------------
 elif selected_opd == "Dinas Ketenagakerjaan":
-    st.title("Visualisasi Data Dinas Ketenagakerjaan")
 
     # Ambil hanya kolom tahun
     tahun_cols = [col for col in df.columns if col.isdigit()]
@@ -189,13 +188,12 @@ elif selected_opd == "Dinas Ketenagakerjaan":
         "Total Keseluruhan": total_keseluruhan.values
     })
 
-    st.subheader("Tabel Total Keseluruhan & Total Pencari Kerja Per Tahun")
+    st.subheader("Jumlah Pencari Kerja Per Tahun")
     st.dataframe(tabel_per_tahun)
 
     # ===============================
     # Diagram Jumlah Pencari Kerja Laki-laki dan Perempuan
     # ===============================
-    st.subheader("Diagram Jumlah Pencari Kerja Laki-laki dan Perempuan")
     df_total = pd.DataFrame({
         "Tahun": tahun_cols,
         "Laki-laki": total_laki.values,
