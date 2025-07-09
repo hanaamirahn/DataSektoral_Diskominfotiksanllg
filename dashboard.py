@@ -47,10 +47,10 @@ if selected_opd == "Dinas Lingkungan Hidup":
     limbah_table = limbah_data[['Kecamatan', 'NILAI 2024 SEMESTER I']].rename(columns={'NILAI 2024 SEMESTER I': 'Volume Limbah (Liter)'})
     total = limbah_table['Volume Limbah (Liter)'].sum()
     limbah_table = pd.concat([limbah_table, pd.DataFrame({'Kecamatan': ['Total'], 'Volume Limbah (Liter)': [total]})], ignore_index=True)
-    st.subheader("Tabel Volume Air Limbah Di Kota Lubuklinggau Tahun 2024")
+    st.subheader("Volume Air Limbah Di Kota Lubuklinggau Tahun 2024")
     st.dataframe(limbah_table)
 
-    st.subheader("Diagram Volume Air Limbah per Kecamatan Tahun 2024")
+    st.subheader("Volume Air Limbah per Kecamatan Tahun 2024")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=limbah_table[limbah_table['Kecamatan'] != 'Total'], x='Kecamatan', y='Volume Limbah (Liter)', palette="Spectral", ax=ax)
     plt.xticks(rotation=45)
