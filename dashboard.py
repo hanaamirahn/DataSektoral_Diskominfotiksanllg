@@ -107,7 +107,7 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.pyplot(fig)
 
     simpan_aktif = df[df['Uraian'].str.contains("koperasi aktif simpan pinjam", case=False)].copy()
-    st.subheader("Jumlah Koperasi Aktif Simpan Pinjam Mandiri (2022–2024)")
+    st.subheader("Jumlah Koperasi Aktif Simpan Pinjam Mandiri Tahun (2022–2024)")
     st.dataframe(simpan_aktif)
 
     fig, ax = plt.subplots()
@@ -119,7 +119,7 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.pyplot(fig)
 
     serba_aktif = df[df['Uraian'].str.contains("koperasi aktif serba usaha", case=False)].copy()
-    st.subheader("Jumlah Koperasi Aktif Serba Usaha Mandiri (2022–2024)")
+    st.subheader("Jumlah Koperasi Aktif Serba Usaha Mandiri Tahun (2022–2024)")
     st.dataframe(serba_aktif)
 
     fig, ax = plt.subplots()
