@@ -31,7 +31,12 @@ selected_opd = st.sidebar.selectbox(
 data_path = opd_list[selected_opd]
 df = pd.read_csv(data_path)
 
-st.header(f"📌 Data & Visualisasi {selected_opd}")
+st.markdown(
+    f"""
+    <h2 style='text-align: center;'> {selected_opd}</h2>
+    """,
+    unsafe_allow_html=True
+)
 
 # -----------------------------
 # DLH
