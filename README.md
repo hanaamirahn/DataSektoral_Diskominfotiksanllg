@@ -29,3 +29,10 @@ Dashboard ini dirancang untuk mempermudah dalam mengakses data sektoral melalui 
 - **Pandas**
 - **Seaborn & Matplotlib** untuk visualisasi
 - **GitHub** sebagai version control & repositori
+
+---
+
+## Cara Mengakses Dashboard Interaktif (Online)
+
+Jika ingin mengakses dashboard ini secara online, URL resmi tersedia di file `url.txt` di dalam repositori.
+Silakan buka file `url.txt` untuk melihat link live dashboard Streamlit.
