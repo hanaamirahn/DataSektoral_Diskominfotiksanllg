@@ -95,10 +95,9 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     umkm_data['Bidang Usaha'] = umkm_data['Uraian'].str.replace('Jumlah UMKM Bidang ', '', regex=False)
     umkm_table = umkm_data[['Bidang Usaha', '2024']].rename(columns={'2024': 'Jumlah'})
     umkm_table = pd.concat([umkm_table, pd.DataFrame({'Bidang Usaha': ['Total'], 'Jumlah': [umkm_table['Jumlah'].sum()]})], ignore_index=True)
-    st.subheader("Tabel Jumlah UMKM Kota Lubuk Linggau Tahun 2024")
+    st.subheader("Jumlah UMKM Tahun 2024")
     st.dataframe(umkm_table)
 
-    st.subheader("Diagram Jumlah UMKM per Bidang Usaha Tahun 2024")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=umkm_table[:-1], y='Bidang Usaha', x='Jumlah', palette="coolwarm", ax=ax)
     for p in plot.patches:
@@ -108,10 +107,9 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.pyplot(fig)
 
     simpan_aktif = df[df['Uraian'].str.contains("koperasi aktif simpan pinjam", case=False)].copy()
-    st.subheader("Tabel Jumlah Koperasi Aktif Simpan Pinjam Mandiri")
+    st.subheader("Jumlah Koperasi Aktif Simpan Pinjam Mandiri (2022–2024)")
     st.dataframe(simpan_aktif)
 
-    st.subheader("Diagram Jumlah Koperasi Aktif Simpan Pinjam Mandiri (2022–2024)")
     fig, ax = plt.subplots()
     tahun = ['2022', '2023', '2024']
     jumlah = [simpan_aktif[tahun].values[0] for tahun in tahun]
@@ -121,10 +119,9 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
     st.pyplot(fig)
 
     serba_aktif = df[df['Uraian'].str.contains("koperasi aktif serba usaha", case=False)].copy()
-    st.subheader("Tabel Jumlah Koperasi Aktif Serba Usaha Mandiri")
+    st.subheader("Jumlah Koperasi Aktif Serba Usaha Mandiri (2022–2024)")
     st.dataframe(serba_aktif)
 
-    st.subheader("Diagram Jumlah Koperasi Aktif Serba Usaha Mandiri (2022–2024)")
     fig, ax = plt.subplots()
     jumlah = [serba_aktif[tahun].values[0] for tahun in tahun]
     bars = ax.barh(tahun, jumlah, color='skyblue')
@@ -138,9 +135,8 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
 # -----------------------------
 elif selected_opd == "Dinas Kesehatan":
     penyakit = df[df['Jenis Data'].str.contains("Penderita", case=False)].copy()
-    st.subheader("Tabel Jenis Penyakit Menular Tahun 2024")
+    st.subheader("Jenis Penyakit Menular Tahun 2024")
     st.dataframe(penyakit[['Jenis Data', '2024']])
-    st.subheader("Diagram Jumlah Penyakit Menular Tahun 2024 per Jenis")
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=penyakit, x='2024', y='Jenis Data', palette="flare", ax=ax)
     for p in plot.patches:
@@ -150,9 +146,8 @@ elif selected_opd == "Dinas Kesehatan":
     st.pyplot(fig)
 
     balita = df[df['Jenis Data'].str.contains("Balita", case=False)].copy()
-    st.subheader("Tabel Jumlah Balita Wasting dan Stunting 2024")
+    st.subheader("Jumlah Balita Wasting dan Stunting 2024")
     st.dataframe(balita[['Jenis Data', '2024']])
-    st.subheader("Diagram Distribusi Jumlah Balita Wasting dan Stunting 2024")
     fig, ax = plt.subplots()
     ax.pie(balita['2024'], labels=balita['Jenis Data'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
@@ -164,7 +159,6 @@ elif selected_opd == "Dinas Kesehatan":
     nakes = df[df['Jenis Data'].str.contains('|'.join(nakes_keywords), case=False)].copy()
     st.subheader("Jumlah Tenaga Kesehatan Tahun 2024")
     st.dataframe(nakes[['Jenis Data', '2024']])
-    st.subheader("Diagram Jumlah Tenaga Kesehatan Tahun 2024")
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(nakes['2024'], labels=nakes['Jenis Data'], autopct='%1.1f%%', startangle=140)
     st.pyplot(fig)
@@ -301,7 +295,7 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
     lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
-    st.subheader("Distribusi Luas Lahan Pertanian per Jenis (2023)")
+    st.subheader("Luas Lahan Pertanian per Jenis Tahun 2023")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
     for p in plot.patches:
@@ -311,11 +305,11 @@ elif selected_opd == "Dinas Pertanian":
     st.pyplot(fig)
     
     buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
-    st.subheader("Tabel Jumlah Produksi Buah per Kecamatan")
+    st.subheader("Jumlah Produksi Buah per Kecamatan")
     st.dataframe(buah)
 
     sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
-    st.subheader("Tabel Jumlah Produksi Sayur per Kecamatan")
+    st.subheader("Jumlah Produksi Sayur per Kecamatan")
     st.dataframe(sayur)
 
     nabati = df[df['Uraian'].str.contains("Obat Nabati", case=False)].copy()
