@@ -135,7 +135,7 @@ elif selected_opd == "Dinas Koperasi dan UMKM":
 # -----------------------------
 elif selected_opd == "Dinas Kesehatan":
     penyakit = df[df['Jenis Data'].str.contains("Penderita", case=False)].copy()
-    st.subheader("Jenis Penyakit Menular Tahun 2024")
+    st.subheader("Jumlah Penyakit Menular Tahun 2024")
     st.dataframe(penyakit[['Jenis Data', '2024']])
     fig, ax = plt.subplots(figsize=(10, 6))
     plot = sns.barplot(data=penyakit, x='2024', y='Jenis Data', palette="flare", ax=ax)
@@ -146,7 +146,7 @@ elif selected_opd == "Dinas Kesehatan":
     st.pyplot(fig)
 
     balita = df[df['Jenis Data'].str.contains("Balita", case=False)].copy()
-    st.subheader("Jumlah Balita Wasting dan Stunting 2024")
+    st.subheader("Jumlah Balita Wasting dan Stunting Tahun 2024")
     st.dataframe(balita[['Jenis Data', '2024']])
     fig, ax = plt.subplots()
     ax.pie(balita['2024'], labels=balita['Jenis Data'], autopct='%1.1f%%', startangle=140)
