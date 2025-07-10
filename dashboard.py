@@ -289,7 +289,6 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # DINPER
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
-    st.header("📊 Dashboard Dinas Pertanian")
 
     # -----------------------------
     # LUAS LAHAN (Pie / Donut)
@@ -317,7 +316,7 @@ elif selected_opd == "Dinas Pertanian":
     )
     centre_circle = plt.Circle((0, 0), 0.60, fc='white')
     fig.gca().add_artist(centre_circle)
-    ax.set_title("Distribusi Luas Lahan Pertanian (Donut Chart)", fontsize=14)
+    ax.set_title("Luas Lahan Pertanian Berdasarkan Jenis Tahun 2023", fontsize=14)
     st.pyplot(fig)
 
     # -----------------------------
