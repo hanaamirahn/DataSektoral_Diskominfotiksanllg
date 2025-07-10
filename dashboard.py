@@ -304,7 +304,6 @@ elif selected_opd == "Dinas Pertanian":
     sizes = lahan_df['2023']
     colors = ["#8ecae6", "#219ebc", "#ffb703", "#fb8500"]
 
-    st.subheader("Distribusi Luas Lahan Pertanian per Jenis Tahun 2023")
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(
         sizes,
