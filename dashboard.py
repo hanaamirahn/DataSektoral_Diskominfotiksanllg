@@ -289,10 +289,9 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # DINPER
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
-
-# -----------------------------
+    
 # LUAS LAHAN (Pie / Donut) + Tabel
-# -----------------------------
+
     lahan_list = [
         "Luas Lahan Sawah Beririgasi",
         "Luas Lahan Sawah Tadah Hujan",
@@ -329,7 +328,7 @@ elif selected_opd == "Dinas Pertanian":
     sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
     sayur["Kecamatan"] = sayur["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
     sayur_grouped = sayur.groupby("Kecamatan")["2023"].sum().reset_index()
-    st.subheader("Jumlah Produksi Sayur per Kecamatan (Ton) Tahun 2023")
+    st.subheader("Jumlah Produksi Sayur per Kecamatan Tahun 2023 (Ton)")
     st.dataframe(sayur_grouped)
 
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -346,7 +345,7 @@ elif selected_opd == "Dinas Pertanian":
     nabati = df[df['Uraian'].str.contains("Obat Nabati", case=False)].copy()
     nabati["Kecamatan"] = nabati["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
     nabati_grouped = nabati.groupby("Kecamatan")["2023"].sum().reset_index()
-    st.subheader("Jumlah Produksi Obat Nabati per Kecamatan (Ton)")
+    st.subheader("Jumlah Produksi Obat Nabati per Kecamatan Tahun 2023 (Ton)")
     st.dataframe(nabati_grouped)
 
     fig, ax = plt.subplots(figsize=(10, 6))
