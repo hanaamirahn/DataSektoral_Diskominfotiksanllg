@@ -423,7 +423,6 @@ elif selected_opd == "Dinas Pertanian":
     )
     for i, row in itik_grouped.iterrows():
         ax.text(row["Kecamatan"], row["2023"] + 100, f"{int(row['2023'])}", ha='center', fontsize=9)
-    ax.set_title("Jumlah Populasi Ternak Itik per Kecamatan (Bubble Chart)")
     ax.set_xlabel("Kecamatan")
     ax.set_ylabel("Jumlah Populasi (Ekor)")
     plt.xticks(rotation=25)
