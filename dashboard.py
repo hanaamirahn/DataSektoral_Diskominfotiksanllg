@@ -321,7 +321,6 @@ elif selected_opd == "Dinas Pertanian":
     )
     centre_circle = plt.Circle((0, 0), 0.60, fc='white')
     fig.gca().add_artist(centre_circle)
-    ax.set_title("Luas Lahan Pertanian Berdasarkan Jenis Tahun 2023", fontsize=14)
     st.pyplot(fig)
 
     # -----------------------------
@@ -330,7 +329,7 @@ elif selected_opd == "Dinas Pertanian":
     sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
     sayur["Kecamatan"] = sayur["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
     sayur_grouped = sayur.groupby("Kecamatan")["2023"].sum().reset_index()
-    st.subheader("Jumlah Produksi Sayur per Kecamatan (Ton)")
+    st.subheader("Jumlah Produksi Sayur per Kecamatan (Ton) Tahun 2023")
     st.dataframe(sayur_grouped)
 
     fig, ax = plt.subplots(figsize=(10, 6))
