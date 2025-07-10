@@ -289,63 +289,88 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # DINPER
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
+    # LAHAN
     lahan = df[df['Uraian'].str.contains("Lahan", case=False)].copy()
     st.subheader("Luas Lahan Pertanian per Jenis Tahun 2023")
     fig, ax = plt.subplots()
     plot = sns.barplot(data=lahan, y='Uraian', x='2023', palette='Set2', ax=ax)
-
-    # Tambahkan label sumbu X dan Y
     ax.set_xlabel("Tahun 2023")
     ax.set_ylabel("Jenis Lahan")
-
-    # Tambahkan anotasi di batang
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
-    
     st.pyplot(fig)
-    
+
+    # BUAH
     buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
+    buah["Kecamatan"] = buah["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
+    buah_grouped = buah.groupby("Kecamatan")["2023"].sum().reset_index()
     st.subheader("Jumlah Produksi Buah per Kecamatan")
-    st.dataframe(buah)
+    st.dataframe(buah_grouped)
 
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=buah_grouped, y='Kecamatan', x='2023', palette='flare', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    # SAYUR
     sayur = df[df['Uraian'].str.contains("Sayur", case=False)].copy()
+    sayur["Kecamatan"] = sayur["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
+    sayur_grouped = sayur.groupby("Kecamatan")["2023"].sum().reset_index()
     st.subheader("Jumlah Produksi Sayur per Kecamatan")
-    st.dataframe(sayur)
+    st.dataframe(sayur_grouped)
 
+    fig, ax = plt.subplots()
+    plot = sns.barplot(data=sayur_grouped, y='Kecamatan', x='2023', palette='Greens', ax=ax)
+    for p in plot.patches:
+        ax.annotate(f"{p.get_width():,.0f}",
+                    (p.get_width(), p.get_y() + p.get_height() / 2),
+                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
+    st.pyplot(fig)
+
+    # OBAT NABATI
     nabati = df[df['Uraian'].str.contains("Obat Nabati", case=False)].copy()
+    nabati["Kecamatan"] = nabati["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
+    nabati_grouped = nabati.groupby("Kecamatan")["2023"].sum().reset_index()
     st.subheader("Tabel Jumlah Produksi Obat Nabati per Kecamatan")
-    st.dataframe(nabati)
+    st.dataframe(nabati_grouped)
 
-    st.subheader("Jumlah Produksi Komoditas Pertanian Tahun 2023")
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=buah, y='Uraian', x='2023', palette='flare', ax=ax)
+    plot = sns.barplot(data=nabati_grouped, y='Kecamatan', x='2023', palette='magma', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
+    # AYAM
     ayam = df[df['Uraian'].str.contains("Ayam", case=False)].copy()
+    ayam["Kecamatan"] = ayam["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
+    ayam_grouped = ayam.groupby("Kecamatan")["2023"].sum().reset_index()
     st.subheader("Jumlah Populasi Ternak Ayam per Kecamatan Tahun 2023")
-    st.dataframe(ayam)
+    st.dataframe(ayam_grouped)
 
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=ayam, y='Uraian', x='2023', palette='rocket', ax=ax)
+    plot = sns.barplot(data=ayam_grouped, y='Kecamatan', x='2023', palette='rocket', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
                     ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
-
+    # ITIK
     itik = df[df['Uraian'].str.contains("Itik", case=False)].copy()
+    itik["Kecamatan"] = itik["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
+    itik_grouped = itik.groupby("Kecamatan")["2023"].sum().reset_index()
     st.subheader("Jumlah Populasi Ternak Itik per Kecamatan Tahun 2023")
-    st.dataframe(itik)
+    st.dataframe(itik_grouped)
 
     fig, ax = plt.subplots()
-    plot = sns.barplot(data=itik, y='Uraian', x='2023', palette='ch:s=.25,rot=-.25', ax=ax)
+    plot = sns.barplot(data=itik_grouped, y='Kecamatan', x='2023', palette='ch:s=.25,rot=-.25', ax=ax)
     for p in plot.patches:
         ax.annotate(f"{p.get_width():,.0f}",
                     (p.get_width(), p.get_y() + p.get_height() / 2),
