@@ -290,9 +290,9 @@ elif selected_opd == "Dinas Ketenagakerjaan":
 # -----------------------------
 elif selected_opd == "Dinas Pertanian":
 
-    # -----------------------------
-    # LUAS LAHAN (Pie / Donut)
-    # -----------------------------
+# -----------------------------
+# LUAS LAHAN (Pie / Donut) + Tabel
+# -----------------------------
     lahan_list = [
         "Luas Lahan Sawah Beririgasi",
         "Luas Lahan Sawah Tadah Hujan",
@@ -304,6 +304,12 @@ elif selected_opd == "Dinas Pertanian":
     sizes = lahan_df['2023']
     colors = ["#8ecae6", "#219ebc", "#ffb703", "#fb8500"]
 
+    # Tampilkan Tabel
+    lahan_tabel = lahan_df[['Uraian', '2023']].rename(columns={'Uraian': 'Jenis Lahan', '2023': 'Luas (Ha)'})
+    st.subheader("Tabel Luas Lahan Pertanian per Jenis Tahun 2023")
+    st.dataframe(lahan_tabel)
+
+    # Tampilkan Pie / Donut Chart
     fig, ax = plt.subplots(figsize=(8, 8))
     ax.pie(
         sizes,
@@ -316,23 +322,6 @@ elif selected_opd == "Dinas Pertanian":
     centre_circle = plt.Circle((0, 0), 0.60, fc='white')
     fig.gca().add_artist(centre_circle)
     ax.set_title("Luas Lahan Pertanian Berdasarkan Jenis Tahun 2023", fontsize=14)
-    st.pyplot(fig)
-
-    # -----------------------------
-    # PRODUKSI BUAH
-    # -----------------------------
-    buah = df[df['Uraian'].str.contains("Buah", case=False)].copy()
-    buah["Kecamatan"] = buah["Uraian"].str.extract(r'Kecamatan\s+([\w\s]+)', expand=False).str.strip()
-    buah_grouped = buah.groupby("Kecamatan")["2023"].sum().reset_index()
-    st.subheader("Jumlah Produksi Buah per Kecamatan (Ton)")
-    st.dataframe(buah_grouped)
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-    plot = sns.barplot(data=buah_grouped, y='Kecamatan', x='2023', palette='flare', ax=ax)
-    for p in plot.patches:
-        ax.annotate(f"{p.get_width():,.0f}",
-                    (p.get_width(), p.get_y() + p.get_height() / 2),
-                    ha='left', va='center', xytext=(5, 0), textcoords='offset points')
     st.pyplot(fig)
 
     # -----------------------------
